@@ -1,0 +1,20 @@
+{
+  "name": "karaman-fk-fikstur",
+  "version": "1.0.0",
+  "description": "Karaman FK maç fikstürü çekici",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0-rc.12",
+    "express": "^4.18.2",
+    "puppeteer": "^21.0.0"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
+
