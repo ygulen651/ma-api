@@ -30,15 +30,21 @@ async function fetchKaramanFixture() {
     
     if (isVercel) {
       // Vercel için @sparticuz/chromium kullan
+      // Chromium'un executable path'ini al
+      const executablePath = await chromium.executablePath();
+      console.log('Chromium executable path:', executablePath);
+      
       launchOptions = {
         args: [
           ...chromium.args,
-          '--hide-scrollbars',
-          '--disable-web-security',
-          '--disable-features=IsolateOrigins,site-per-process'
+          '--disable-gpu',
+          '--disable-software-rasterizer',
+          '--disable-dev-shm-usage',
+          '--no-sandbox',
+          '--disable-setuid-sandbox'
         ],
         defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath(),
+        executablePath: executablePath,
         headless: chromium.headless,
         ignoreHTTPSErrors: true,
       };
