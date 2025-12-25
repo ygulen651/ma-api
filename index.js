@@ -23,9 +23,8 @@ async function fetchKaramanFixture() {
     
     if (isVercel) {
       // Vercel için @sparticuz/chromium kullan
-      chromium.setGraphicsMode(false);
       launchOptions = {
-        args: chromium.args,
+        args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
         defaultViewport: chromium.defaultViewport,
         executablePath: await chromium.executablePath(),
         headless: chromium.headless,
