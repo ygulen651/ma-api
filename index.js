@@ -1,7 +1,14 @@
 const express = require('express');
-const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 const chromium = require('@sparticuz/chromium');
+
+// Vercel için puppeteer-core, local için puppeteer
+let puppeteer;
+if (process.env.VERCEL) {
+  puppeteer = require('puppeteer-core');
+} else {
+  puppeteer = require('puppeteer');
+}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,14 +24,19 @@ async function fetchKaramanFixture() {
     console.log('Tarayıcı başlatılıyor...');
     
     // Vercel için özel ayarlar
-    const isVercel = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME;
+    const isVercel = process.env.VERCEL;
     
     let launchOptions;
     
     if (isVercel) {
       // Vercel için @sparticuz/chromium kullan
       launchOptions = {
-        args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
+        args: [
+          ...chromium.args,
+          '--hide-scrollbars',
+          '--disable-web-security',
+          '--disable-features=IsolateOrigins,site-per-process'
+        ],
         defaultViewport: chromium.defaultViewport,
         executablePath: await chromium.executablePath(),
         headless: chromium.headless,
