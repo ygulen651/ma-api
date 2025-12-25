@@ -35,14 +35,7 @@ async function fetchKaramanFixture() {
       console.log('Chromium executable path:', executablePath);
       
       launchOptions = {
-        args: [
-          ...chromium.args,
-          '--disable-gpu',
-          '--disable-software-rasterizer',
-          '--disable-dev-shm-usage',
-          '--no-sandbox',
-          '--disable-setuid-sandbox'
-        ],
+        args: chromium.args,
         defaultViewport: chromium.defaultViewport,
         executablePath: executablePath,
         headless: chromium.headless,
